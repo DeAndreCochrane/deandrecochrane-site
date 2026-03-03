@@ -72,6 +72,7 @@ nav {
   flex-direction: column;
   justify-content: center;
   padding: 150px 60px 110px;
+  overflow: hidden;
 }
 
 .hero-eyebrow {
@@ -575,13 +576,92 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:38
 .mob-cta{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(200,161,80,.4);padding:14px 32px;text-decoration:none;transition:all .2s;}
 .mob-cta:hover{background:rgba(200,161,80,.08);border-color:var(--gold);}
 
-/* ── RESPONSIVE ── */
+/* ── CAROUSEL ── */
+.carousel-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.c-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center top;
+  opacity: 0;
+  transition: opacity 1.8s ease;
+}
+.c-slide.active {
+  opacity: 1;
+}
+.carousel-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    105deg,
+    rgba(6,9,26,0.88) 0%,
+    rgba(6,9,26,0.72) 45%,
+    rgba(6,9,26,0.38) 75%,
+    rgba(6,9,26,0.15) 100%
+  );
+}
+.hero-content {
+  position: relative;
+  z-index: 3;
+}
+.hero-taglines {
+  position: relative;
+  height: 64px;
+  margin-bottom: 44px;
+}
+.hero-tagline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 600px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(17px, 2vw, 22px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.7;
+  color: rgba(255,255,255,.5);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  pointer-events: none;
+}
+.hero-tagline strong { font-style: normal; font-weight: 600; color: var(--white); }
+.hero-tagline.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+.c-dots {
+  display: flex;
+  gap: 10px;
+  margin-top: 32px;
+}
+.c-dot {
+  width: 28px;
+  height: 2px;
+  background: rgba(255,255,255,.25);
+  border: none;
+  cursor: pointer;
+  transition: background .3s, width .3s;
+  padding: 0;
+}
+.c-dot.active {
+  background: var(--gold);
+  width: 44px;
+}
+
+/* ── CAROUSEL ── */
 @media(max-width:960px){
   nav{padding:18px 24px;}
   .nav-links, #nav-cta-desk{display:none;}
   .hamburger{display:flex;}
 
   .hero{padding:120px 24px 80px;}
+  .hero-taglines{height:auto;position:relative;margin-bottom:32px;}
+  .hero-tagline{position:relative;top:auto;left:auto;font-size:16px;}
+  .hero-tagline:not(.active){display:none;}
   .hero-name{font-size:clamp(52px,14vw,90px);}
   .hero-sub{font-size:16px;}
   .hero-btns{flex-direction:column;gap:12px;}
@@ -657,30 +737,58 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:38
     <a href="mailto:dcochrane@microsoft.com" class="mob-cta">Work With Me →</a>
   </div>
 </div>
+<!-- HERO CAROUSEL -->
 <section class="hero">
-  <div class="hero-eyebrow">
-    <span class="badge">Microsoft · Cloud & AI</span>
-    <span class="badge-text">Platform Specialist · Atlanta, GA</span>
+
+  <!-- Cinematic background slides -->
+  <div class="carousel-bg" id="carouselBg">
+    <div class="c-slide active" style="background-image:url('https://raw.githubusercontent.com/DeAndreCochrane/deandrecochrane-site/main/4.webp')"></div>
+    <div class="c-slide" style="background-image:url('https://raw.githubusercontent.com/DeAndreCochrane/deandrecochrane-site/main/2.webp')"></div>
+    <div class="c-slide" style="background-image:url('https://raw.githubusercontent.com/DeAndreCochrane/deandrecochrane-site/main/3.webp')"></div>
+    <div class="c-slide" style="background-image:url('https://raw.githubusercontent.com/DeAndreCochrane/deandrecochrane-site/main/1.webp')"></div>
   </div>
-  <h1 class="hero-name">
-    <span class="l1">DeAndre R.</span>
-    <span class="l2">Cochrane.</span>
-  </h1>
-  <div class="title-row">
-    <div class="tline"></div>
-    <span class="title-text">Cloud & AI Platform Specialist at Microsoft</span>
-    <div class="tline"></div>
+
+  <!-- Dark gradient overlay -->
+  <div class="carousel-overlay"></div>
+
+  <!-- Hero content -->
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="badge">Microsoft · Cloud & AI</span>
+      <span class="badge-text">Platform Specialist · Atlanta, GA</span>
+    </div>
+    <h1 class="hero-name">
+      <span class="l1">DeAndre R.</span>
+      <span class="l2">Cochrane.</span>
+    </h1>
+    <div class="title-row">
+      <div class="tline"></div>
+      <span class="title-text">Cloud & AI Platform Specialist at Microsoft</span>
+      <div class="tline"></div>
+    </div>
+
+    <!-- Rotating taglines -->
+    <div class="hero-taglines">
+      <p class="hero-tagline active">I don't just talk about AI. <strong>I sell it.</strong></p>
+      <p class="hero-tagline">Built for the rooms where <strong>the future gets decided.</strong></p>
+      <p class="hero-tagline">Where <strong>relationships meet results.</strong></p>
+      <p class="hero-tagline">Cloud & AI Platform Specialist. <strong>Microsoft.</strong></p>
+    </div>
+
+    <div class="hero-btns">
+      <a href="https://linkedin.com/in/deandrecochrane" class="btn-p">Connect on LinkedIn ↗</a>
+      <a href="#ai" class="btn-g">See My Work ↓</a>
+    </div>
+
+    <!-- Carousel dots -->
+    <div class="c-dots">
+      <button class="c-dot active" onclick="goSlide(0)"></button>
+      <button class="c-dot" onclick="goSlide(1)"></button>
+      <button class="c-dot" onclick="goSlide(2)"></button>
+      <button class="c-dot" onclick="goSlide(3)"></button>
+    </div>
   </div>
-  <p class="hero-sub">
-    I help <strong>SMB, Mid-Market, and Corporate organizations</strong> stop
-    dabbling in AI and start deploying it — through Azure infrastructure strategy,
-    Copilot adoption, and Marketplace motions that create <strong>measurable, lasting advantage.</strong><br><br>
-    Where intelligent technology meets human ambition.
-  </p>
-  <div class="hero-btns">
-    <a href="https://linkedin.com/in/deandrecochrane" class="btn-p">Connect on LinkedIn ↗</a>
-    <a href="#ai" class="btn-g">See My Work ↓</a>
-  </div>
+
   <div class="scroll-h">
     <div class="scroll-bar"></div>
     <span class="scroll-lbl">Scroll</span>
@@ -1378,7 +1486,13 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:38
       </div>
       <div class="about-card gold">
         <div class="about-title">Founder & Principal Consultant</div>
-        <div class="about-text">Cochrane & Co — self-employed consulting practice running since May 2020, focusdiv class="about-card">
+        <div class="about-text">Cochrane & Co — self-employed consulting practice focused on business development and strategic advisory since May 2020.</div>
+      </div>
+      <div class="about-card teal">
+        <div class="about-title">Community & Service</div>
+        <div class="about-text">Devoted Church member. Faith-driven approach to leadership, service, and building things that last beyond the workday.</div>
+      </div>
+      <div class="about-card">
         <div class="about-title">Family Man</div>
         <div class="about-text">Husband to Valencia. Father to Violette, Judah, and Esmé. Everything else is the reason why.</div>
       </div>
@@ -1491,6 +1605,35 @@ const barObs = new IntersectionObserver(entries => {
 }, { threshold: 0.15 });
 const perfSection = document.getElementById('performance');
 if (perfSection) barObs.observe(perfSection);
+
+// PHOTO CAROUSEL
+let currentSlide = 0;
+const slides = document.querySelectorAll('.c-slide');
+const taglines = document.querySelectorAll('.hero-tagline');
+const dots = document.querySelectorAll('.c-dot');
+const INTERVAL = 5000;
+
+function goSlide(n) {
+  slides[currentSlide].classList.remove('active');
+  taglines[currentSlide].classList.remove('active');
+  dots[currentSlide].classList.remove('active');
+  currentSlide = n;
+  slides[currentSlide].classList.add('active');
+  taglines[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+}
+
+function nextSlide() {
+  goSlide((currentSlide + 1) % slides.length);
+}
+
+let carouselTimer = setInterval(nextSlide, INTERVAL);
+
+// Pause on hover
+document.querySelector('.hero').addEventListener('mouseenter', () => clearInterval(carouselTimer));
+document.querySelector('.hero').addEventListener('mouseleave', () => {
+  carouselTimer = setInterval(nextSlide, INTERVAL);
+});
 
 // HAMBURGER MENU
 const hamburger = document.getElementById('hamburger');
