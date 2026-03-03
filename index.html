@@ -557,15 +557,67 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:38
 .reveal.vis{opacity:1;transform:translateY(0);}
 .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
 
+/* ── HAMBURGER ── */
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:1001;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--white);transition:all .3s ease;transform-origin:center;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* ── MOBILE DRAWER ── */
+.mob-drawer{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(4,6,18,.97);backdrop-filter:blur(12px);z-index:999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s ease;}
+.mob-drawer.open{opacity:1;pointer-events:all;}
+.mob-drawer-inner{display:flex;flex-direction:column;align-items:center;gap:4px;transform:translateY(20px);transition:transform .35s ease;}
+.mob-drawer.open .mob-drawer-inner{transform:translateY(0);}
+.mob-links{list-style:none;display:flex;flex-direction:column;align-items:center;gap:2px;}
+.mob-link{display:block;font-family:'Cormorant Garamond',serif;font-size:clamp(28px,8vw,42px);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.7);text-decoration:none;padding:8px 20px;transition:color .2s;text-align:center;}
+.mob-link:hover{color:var(--white);}
+.mob-cta{margin-top:24px;font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid rgba(200,161,80,.35);padding:14px 32px;transition:all .25s;}
+.mob-cta:hover{background:rgba(200,161,80,.08);}
+
 /* ── RESPONSIVE ── */
 @media(max-width:960px){
-  nav{padding:18px 28px;}
+  nav{padding:16px 24px;}
   .nav-links{display:none;}
-  .hero,.sec,.cert-section,.exp-section,.tl-section,.edu-section,.phil,.contact-sec{padding-left:28px;padding-right:28px;}
-  .ai-grid,.two-col,.phil-grid,.contact-sec,.cert-intro,.edu-grid{grid-template-columns:1fr;gap:36px;}
+  #nav-cta-desk{display:none;}
+  .hamburger{display:flex;}
+  .hero{padding:120px 24px 80px;}
+  .hero-name{font-size:clamp(52px,14vw,90px);}
+  .hero-sub{font-size:16px;}
+  .hero-btns{flex-direction:column;gap:12px;}
+  .btn-p,.btn-g{width:100%;justify-content:center;padding:14px 24px;}
+  .title-row{gap:10px;}
+  .ti{font-size:11px;padding:0 20px;}
+  .sec,.cert-section,.exp-section,.tl-section,.edu-section,.phil{padding-left:24px;padding-right:24px;padding-top:70px;padding-bottom:70px;}
+  .contact-sec{grid-template-columns:1fr;gap:32px;padding:70px 24px;}
+  .ai-grid,.two-col,.phil-grid,.cert-intro,.edu-grid{grid-template-columns:1fr;gap:32px;}
   .ai-cards,.cert-cats,.exp-grid{grid-template-columns:1fr;}
   .stats-strip{grid-template-columns:repeat(2,1fr);}
+  .sc{padding:32px 20px;}
+  .sn{font-size:40px;}
+  .perf-section{padding:70px 24px;}
+  .perf-header{grid-template-columns:1fr;gap:24px;margin-bottom:36px;}
+  .q-tabs{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;}
+  .q-tab{padding:12px 10px;font-size:12px;letter-spacing:.06em;}
+  .metric-row{grid-template-columns:1fr;gap:10px;padding:16px 0;}
+  .metric-right{flex-direction:row;align-items:center;gap:12px;}
+  .metric-bar-wrap{flex:1;}
+  .metric-pct{font-size:28px;min-width:60px;}
+  .q-summary{flex-direction:column;gap:10px;padding:20px 16px;}
+  .qs-item{flex-direction:row;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:10px;}
+  .qs-item:last-child{border-bottom:none;padding-bottom:0;}
+  .guinness-bar{flex-direction:column;gap:12px;padding:20px;}
+  .phil-bg{font-size:120px;}
+  .about-side{margin-top:0;}
+  .tl-item{padding-left:32px;}
   .scroll-h{display:none;}
+  .perf-disclaimer{font-size:8px;padding:8px 12px;}
+  .sec-h{font-size:clamp(28px,7vw,44px);}
+}
+@media(max-width:480px){
+  .hero-name{font-size:clamp(38px,12vw,64px);}
+  .stats-strip{grid-template-columns:1fr;}
+  .hero-eyebrow{flex-direction:column;align-items:flex-start;gap:6px;}
 }
 </style>
 </head>
@@ -585,8 +637,21 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:38
     <li><a href="#journey">Journey</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="mailto:dcochrane@microsoft.com" class="nav-cta">Work With Me →</a>
+  <a href="mailto:dcochrane@microsoft.com" class="nav-cta" id="nav-cta-desk">Work With Me →</a>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
+<div class="mob-drawer" id="mobDrawer">
+  <div class="mob-drawer-inner">
+    <ul class="mob-links">
+      <li><a href="#ai" class="mob-link">AI Practice</a></li>
+      <li><a href="#performance" class="mob-link">Performance</a></li>
+      <li><a href="#certs" class="mob-link">Credentials</a></li>
+      <li><a href="#journey" class="mob-link">Journey</a></li>
+      <li><a href="#contact" class="mob-link">Contact</a></li>
+    </ul>
+    <a href="mailto:dcochrane@microsoft.com" class="mob-cta">Work With Me →</a>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -1286,12 +1351,12 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:38
       </a>
       <a href="mailto:dcochrane@microsoft.com" class="clink">
         <span class="ci">🏢</span>
-        <div class="cl">Microsoft<span class="cs">dcochrane@microsoft.com</span></div>
+        <div class="cl">Microsoft<span class="cs"><span class="__cf_email__" data-cfemail="1b7f78747873697a757e5b767278697468747d6f35787476">[email&#160;protected]</span></span></div>
         <span class="ca">→</span>
       </a>
       <a href="mailto:cochrane.deandre12@gmail.com" class="clink">
         <span class="ci">✉️</span>
-        <div class="cl">Personal<span class="cs">cochrane.deandre12@gmail.com</span></div>
+        <div class="cl">Personal<span class="cs"><span class="__cf_email__" data-cfemail="bfdcd0dcd7cdded1da91dbdaded1dbcdda8e8dffd8d2ded6d391dcd0d2">[email&#160;protected]</span></span></div>
         <span class="ca">→</span>
       </a>
       <a href="#" class="clink">
@@ -1335,6 +1400,22 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:38
 
 <!-- SCRIPTS -->
 <script>
+// Hamburger menu
+const hamburger = document.getElementById('hamburger');
+const mobDrawer = document.getElementById('mobDrawer');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobDrawer.classList.toggle('open');
+  document.body.style.overflow = mobDrawer.classList.contains('open') ? 'hidden' : '';
+});
+document.querySelectorAll('.mob-link, .mob-cta').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobDrawer.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+</script><script>
 // CURSOR
 const cur = document.getElementById('cur');
 const curR = document.getElementById('curR');
@@ -1422,17 +1503,4 @@ const barObs = new IntersectionObserver(entries => {
         const targetW = bar.getAttribute('data-w') || bar.style.width;
         bar.setAttribute('data-w', targetW);
         bar.style.width = '0%';
-        setTimeout(() => { bar.style.width = targetW; }, 100 + i * 140);
-      });
-    }
-  });
-}, { threshold: 0.15 });
-const perfSection = document.getElementById('performance');
-if (perfSection) barObs.observe(perfSection);
-
-// SCROLL REVEAL
-const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}}),{threshold:.08});
-document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
-</script>
-</body>
-</html>
+        setTimeout(() => { bar.style.width = t
