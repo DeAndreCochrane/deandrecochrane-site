@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeAndre R. Cochrane — Cloud & AI Platform Specialist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;0,700;1,300;1,600&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+:root {
+  --navy:     #06091a;
+  --deep:     #080c1e;
+  --panel:    #0c1124;
+  --card:     #101628;
+  --card2:    #131a2e;
+  --border:   rgba(255,255,255,0.055);
+  --blue:     #0078d4;
+  --azure:    #3fa8f5;
+  --glow:     #1a9fff;
+  --gold:     #c8a150;
+  --gold-lt:  #ddb96a;
+  --ai-teal:  #00cfaa;
+  --muted:    #6e7a96;
+  --dim:      #3d4a62;
+  --white:    #f8f9ff;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--navy);
+  color: var(--white);
+  font-family: 'Syne', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CURSOR ── */
+.cursor,.cursor-ring{position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+.cursor{width:8px;height:8px;background:var(--gold);border-radius:50%;transition:transform .08s;}
+.cursor-ring{width:34px;height:34px;border:1px solid rgba(200,161,80,.35);border-radius:50%;z-index:9998;transition:width .18s,height .18s,border-color .18s;}
+
+/* ── CANVAS ── */
+#bg{position:fixed;inset:0;z-index:0;opacity:.5;}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 60px;
+  background: linear-gradient(to bottom, rgba(6,9,26,.97) 60%, transparent);
+  backdrop-filter: blur(4px);
+}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px;letter-spacing:.08em;color:var(--white);}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{text-decoration:none;font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);transition:color .2s;}
+.nav-links a:hover{color:var(--white);}
+.nav-cta{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(200,161,80,.3);padding-bottom:2px;transition:all .2s;}
+.nav-cta:hover{color:var(--gold-lt);border-color:var(--gold);}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 150px 60px 110px;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 38px;
+  opacity: 0;
+  animation: up .8s forwards .3s;
+}
+.badge {
+  background: rgba(0,120,212,.14);
+  border: 1px solid rgba(0,120,212,.38);
+  padding: 6px 14px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--azure);
+}
+.badge-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hero-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(70px, 10vw, 138px);
+  font-weight: 700;
+  line-height: .92;
+  margin-bottom: 10px;
+  opacity: 0;
+  animation: up 1s forwards .5s;
+}
+.hero-name .l1{display:block;color:var(--white);}
+.hero-name .l2{display:block;color:transparent;-webkit-text-stroke:1.2px var(--gold);font-style:italic;}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 30px 0 50px;
+  opacity: 0;
+  animation: up 1s forwards .7s;
+}
+.tline{width:44px;height:1px;background:var(--gold);}
+.title-text{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);}
+
+.hero-sub {
+  max-width: 600px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(17px, 2vw, 22px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.7;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 60px;
+  opacity: 0;
+  animation: up 1s forwards .9s;
+}
+.hero-sub strong{font-style:normal;font-weight:600;color:var(--white);}
+
+.hero-btns {
+  display: flex;
+  gap: 14px;
+  opacity: 0;
+  animation: up 1s forwards 1.1s;
+}
+.btn-p {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--blue);
+  color: #fff;
+  padding: 15px 34px;
+  text-decoration: none;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  transition: all .25s;
+  position: relative;
+  overflow: hidden;
+}
+.btn-p:hover{background:var(--glow);box-shadow:0 0 40px rgba(0,120,212,.55);transform:translateY(-2px);}
+.btn-g {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(200,161,80,.3);
+  color: var(--gold);
+  padding: 15px 34px;
+  text-decoration: none;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  transition: all .25s;
+}
+.btn-g:hover{border-color:var(--gold);background:rgba(200,161,80,.08);transform:translateY(-2px);}
+
+/* scroll hint */
+.scroll-h {
+  position: absolute;
+  bottom: 40px;
+  left: 60px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  animation: fadeIn 1s forwards 1.6s;
+}
+.scroll-bar{width:1px;height:56px;background:linear-gradient(to bottom,var(--gold),transparent);animation:spulse 2s ease-in-out infinite;}
+.scroll-lbl{font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);writing-mode:vertical-lr;}
+@keyframes spulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+/* ── TICKER ── */
+.ticker-wrap {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: rgba(10,14,32,.88);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+  padding: 13px 0;
+}
+.ticker-inner{display:flex;white-space:nowrap;animation:tick 32s linear infinite;}
+.ti{display:inline-flex;align-items:center;gap:18px;padding:0 38px;font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);}
+.td{width:3px;height:3px;border-radius:50%;background:var(--gold);opacity:.55;}
+.ti .hl{color:var(--azure);}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── SECTION COMMONS ── */
+.sec{position:relative;z-index:2;padding:110px 60px;}
+.sec-tag{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--azure);margin-bottom:18px;display:flex;align-items:center;gap:12px;}
+.sec-tag::before{content:'';display:block;width:22px;height:1px;background:var(--azure);}
+.sec-h{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.5vw,62px);font-weight:600;line-height:1.1;}
+.sec-h em{font-style:italic;color:var(--gold);}
+
+/* ── AI NARRATIVE ── */
+.ai-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  margin-bottom: 72px;
+}
+.ai-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(16px,1.8vw,20px);
+  line-height: 1.8;
+  color: rgba(255,255,255,.48);
+  padding-top: 56px;
+}
+.ai-body strong{font-weight:600;color:var(--white);}
+
+.ai-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.aic {
+  background: var(--card);
+  padding: 42px 34px;
+  position: relative;
+  overflow: hidden;
+  transition: all .35s;
+  border-bottom: 2px solid transparent;
+}
+.aic:hover{background:var(--card2);border-bottom-color:var(--azure);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.4);}
+.aic-icon{width:44px;height:44px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:22px;background:rgba(255,255,255,.02);transition:all .3s;}
+.aic:hover .aic-icon{border-color:rgba(0,120,212,.4);background:rgba(0,120,212,.1);}
+.aic-title{font-size:14px;font-weight:700;color:var(--white);margin-bottom:12px;letter-spacing:.02em;}
+.aic-text{font-family:'Cormorant Garamond',serif;font-size:16px;line-height:1.75;color:var(--muted);}
+.aic-tag{display:inline-block;margin-top:18px;font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ai-teal);border:1px solid rgba(0,207,170,.22);padding:4px 10px;}
+
+/* ── STATS ── */
+.stats-strip {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: rgba(8,12,30,.9);
+}
+.sc {
+  padding: 50px 38px;
+  border-right: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: background .3s;
+}
+.sc:last-child{border-right:none;}
+.sc:hover{background:rgba(255,255,255,.018);}
+.sc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),transparent);transform:scaleX(0);transition:transform .4s;transform-origin:left;}
+.sc:hover::before{transform:scaleX(1);}
+.sn{font-family:'Cormorant Garamond',serif;font-size:54px;font-weight:700;line-height:1;margin-bottom:8px;}
+.sn .a{color:var(--gold);}
+.sl{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.55;}
+
+/* ── CERTIFICATIONS ── */
+.cert-section{position:relative;z-index:2;padding:110px 60px;}
+.cert-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-bottom:64px;align-items:end;}
+.cert-count{font-family:'Cormorant Garamond',serif;font-size:96px;font-weight:700;color:transparent;-webkit-text-stroke:1px rgba(200,161,80,.3);line-height:1;}
+
+.cert-cats{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.cert-cat{background:var(--card);padding:36px 30px;}
+.cert-cat-label{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.cert-cat-label.blue{color:var(--azure);}
+.cert-cat-label.gold{color:var(--gold);}
+.cert-cat-label.teal{color:var(--ai-teal);}
+.cert-item{display:flex;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.03);}
+.cert-item:last-child{border-bottom:none;}
+.cert-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:6px;}
+.cert-dot.blue{background:var(--azure);}
+.cert-dot.gold{background:var(--gold);}
+.cert-dot.teal{background:var(--ai-teal);}
+.cert-name{font-size:12px;font-weight:600;color:var(--white);line-height:1.4;}
+.cert-date{font-family:'DM Mono',monospace;font-size:9px;color:var(--dim);margin-top:3px;}
+
+/* GUINNESS HIGHLIGHT */
+.guinness-bar {
+  margin: 2px 0;
+  background: linear-gradient(135deg, rgba(200,161,80,.08) 0%, rgba(200,161,80,.03) 100%);
+  border: 1px solid rgba(200,161,80,.18);
+  padding: 28px 36px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.g-star{font-size:32px;}
+.g-text .g-title{font-size:14px;font-weight:700;color:var(--gold);}
+.g-text .g-sub{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--muted);margin-top:4px;}
+
+/* ── EXPERIENCE ── */
+.exp-section{position:relative;z-index:2;padding:0 60px 110px;}
+
+.two-col{display:grid;grid-template-columns:340px 1fr;gap:80px;align-items:start;}
+
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.ec{background:var(--card);padding:34px 30px;border-left:2px solid transparent;transition:all .3s;}
+.ec:hover{background:var(--card2);}
+.ec.b:hover{border-left-color:var(--blue);}
+.ec.g:hover{border-left-color:var(--gold);}
+.ec.t:hover{border-left-color:var(--ai-teal);}
+.ec-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--dim);margin-bottom:14px;letter-spacing:.1em;}
+.ec-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--white);margin-bottom:12px;}
+.ec-list{list-style:none;font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--muted);line-height:2;}
+.ec-list li{display:flex;align-items:center;gap:8px;}
+.ec-list li::before{content:'';display:block;width:14px;height:1px;background:var(--azure);flex-shrink:0;}
+.ec.g .ec-list li::before{background:var(--gold);}
+.ec.t .ec-list li::before{background:var(--ai-teal);}
+
+/* ── TIMELINE ── */
+.tl-section{position:relative;z-index:2;padding:0 60px 110px;}
+.tl-wrap{border-left:1px solid var(--border);padding-left:0;}
+.tl-item{padding:0 0 52px 50px;position:relative;}
+.tl-item::before{content:'';position:absolute;left:-5px;top:8px;width:9px;height:9px;border-radius:50%;background:var(--blue);box-shadow:0 0 14px rgba(0,120,212,.8);}
+.tl-item.cur::before{background:var(--gold);box-shadow:0 0 14px rgba(200,161,80,.8);}
+.tl-date{font-family:'DM Mono',monospace;font-size:9px;color:var(--azure);letter-spacing:.18em;margin-bottom:10px;}
+.tl-item.cur .tl-date{color:var(--gold);}
+.tl-role{font-size:17px;font-weight:700;color:var(--white);margin-bottom:4px;}
+.tl-company{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.tl-desc{font-family:'Cormorant Garamond',serif;font-size:17px;line-height:1.72;color:rgba(255,255,255,.42);max-width:700px;}
+.tl-pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;}
+.pill{font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 11px;border:1px solid var(--border);color:var(--dim);background:rgba(255,255,255,.02);}
+.pill.a{border-color:rgba(0,120,212,.35);color:var(--azure);background:rgba(0,120,212,.06);}
+.pill.g{border-color:rgba(200,161,80,.3);color:var(--gold);background:rgba(200,161,80,.05);}
+.pill.t{border-color:rgba(0,207,170,.25);color:var(--ai-teal);background:rgba(0,207,170,.04);}
+
+/* ── EDUCATION ── */
+.edu-section{position:relative;z-index:2;padding:0 60px 110px;}
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:48px;}
+.edu-card{background:var(--card);padding:36px 32px;border-left:2px solid var(--blue);transition:background .3s;}
+.edu-card:hover{background:var(--card2);}
+.edu-school{font-size:15px;font-weight:700;color:var(--white);margin-bottom:6px;}
+.edu-degree{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--muted);line-height:1.5;}
+.edu-year{font-family:'DM Mono',monospace;font-size:10px;color:var(--dim);margin-top:10px;letter-spacing:.1em;}
+
+/* ── PHILOSOPHY ── */
+.phil{
+  position:relative;
+  z-index:2;
+  padding:110px 60px;
+  background:var(--panel);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  overflow:hidden;
+}
+.phil-bg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Cormorant Garamond',serif;font-size:280px;font-weight:700;font-style:italic;color:rgba(255,255,255,.018);white-space:nowrap;pointer-events:none;user-select:none;letter-spacing:-8px;}
+.phil-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:1;}
+.phil-q{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.6vw,32px);font-weight:300;font-style:italic;line-height:1.5;color:rgba(255,255,255,.72);}
+.phil-q strong{font-style:normal;font-weight:700;color:var(--white);}
+.phil-q .gld{color:var(--gold);font-style:normal;}
+.phil-attr{font-family:'Cormorant Garamond',serif;margin-top:28px;font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+.vlist{display:flex;flex-direction:column;}
+.vrow{display:flex;align-items:center;gap:22px;padding:26px 0;border-bottom:1px solid var(--border);transition:all .2s;}
+.vrow:first-child{border-top:1px solid var(--border);}
+.vrow:hover{padding-left:10px;}
+.vnum{font-family:'DM Mono',monospace;font-size:10px;color:var(--dim);width:22px;flex-shrink:0;}
+.vname{font-size:14px;font-weight:700;color:var(--white);flex:1;}
+.vdesc{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--muted);text-align:right;max-width:190px;}
+
+/* ── CONTACT ── */
+.contact-sec {
+  position:relative;z-index:2;padding:110px 60px;
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;
+}
+.clinks{margin-top:38px;display:flex;flex-direction:column;gap:2px;}
+.clink{display:flex;align-items:center;gap:18px;padding:20px 22px;background:var(--card);text-decoration:none;color:var(--white);font-size:12px;font-weight:700;letter-spacing:.06em;transition:all .25s;border-left:2px solid transparent;}
+.clink:hover{background:var(--card2);border-left-color:var(--blue);padding-left:30px;}
+.clink .ci{font-size:17px;width:22px;text-align:center;flex-shrink:0;}
+.clink .cl{flex:1;}
+.clink .cs{font-size:9px;font-weight:400;color:var(--muted);letter-spacing:.1em;display:block;margin-top:2px;}
+.clink .ca{color:var(--muted);font-size:18px;transition:transform .2s,color .2s;}
+.clink:hover .ca{transform:translateX(4px);color:var(--azure);}
+
+/* right side */
+.about-side{display:flex;flex-direction:column;gap:2px;margin-top:38px;}
+.about-card{background:var(--card);padding:26px 30px;border-left:2px solid var(--blue);}
+.about-card.gold{border-left-color:var(--gold);}
+.about-card.teal{border-left-color:var(--ai-teal);}
+.about-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;letter-spacing:.02em;color:var(--white);margin-bottom:7px;}
+.about-text{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--muted);line-height:1.7;}
+
+/* ── PERFORMANCE SECTION ── */
+.perf-section{position:relative;z-index:2;padding:110px 60px;background:linear-gradient(180deg,var(--deep) 0%,var(--panel) 50%,var(--deep) 100%);}
+
+.perf-disclaimer{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(200,161,80,.06);border:1px solid rgba(200,161,80,.18);
+  padding:10px 18px;margin-bottom:56px;
+  font-family:'DM Mono',monospace;font-size:9px;font-weight:400;
+  letter-spacing:.12em;color:rgba(200,161,80,.7);
+}
+.perf-disclaimer::before{content:'⚠';font-size:11px;}
+
+.perf-header{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-bottom:64px;align-items:end;}
+
+.fy-label{
+  display:inline-flex;align-items:center;gap:10px;
+  margin-bottom:12px;
+  font-family:'DM Mono',monospace;font-size:9px;font-weight:400;
+  font-family:'Cormorant Garamond',serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ai-teal);font-size:13px;font-weight:600;
+}
+.fy-pulse{width:6px;height:6px;border-radius:50%;background:var(--ai-teal);animation:blink 1.6s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+
+.perf-intro-text{font-family:'Cormorant Garamond',serif;font-size:17px;line-height:1.8;color:var(--muted);}
+.perf-intro-text strong{color:var(--white);font-weight:600;}
+
+/* Quarter tabs */
+.q-tabs{display:flex;gap:2px;margin-bottom:2px;}
+.q-tab{
+  flex:1;padding:16px 20px;
+  background:var(--card);
+  border:none;cursor:pointer;
+  font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);
+  transition:all .25s;
+  border-top:2px solid transparent;
+  position:relative;
+}
+.q-tab:hover{background:var(--card2);color:var(--white);}
+.q-tab.active{background:var(--card2);color:var(--white);border-top-color:var(--blue);}
+.q-tab.active.q1{border-top-color:var(--ai-teal);}
+.q-tab.active.q2{border-top-color:var(--azure);}
+.q-tab.active.q3{border-top-color:var(--gold);}
+.q-tab.active.q4{border-top-color:var(--muted);}
+.q-tab .q-status{display:block;font-size:8px;font-weight:400;letter-spacing:.1em;color:var(--dim);margin-top:4px;font-family:'DM Mono',monospace;}
+.q-tab.active .q-status{color:var(--muted);}
+.q-tab .q-badge{
+  position:absolute;top:8px;right:8px;
+  font-size:7px;font-weight:800;letter-spacing:.15em;
+  padding:2px 6px;border-radius:2px;
+}
+.q-tab .q-badge.complete{background:rgba(0,207,170,.12);color:var(--ai-teal);border:1px solid rgba(0,207,170,.2);}
+.q-tab .q-badge.progress{background:rgba(200,161,80,.1);color:var(--gold);border:1px solid rgba(200,161,80,.2);}
+.q-tab .q-badge.pipeline{background:rgba(255,255,255,.04);color:var(--muted);border:1px solid var(--border);}
+
+/* Quarter panels */
+.q-panels{position:relative;}
+.q-panel{display:none;}
+.q-panel.active{display:block;}
+
+.q-panel-header{
+  background:var(--card);
+  padding:24px 32px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.q-panel-title{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--white);}
+.q-panel-note{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.1em;}
+
+/* Metric rows */
+.metric-row{
+  background:var(--card);
+  padding:28px 32px;
+  border-bottom:1px solid rgba(255,255,255,.03);
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:24px;
+  align-items:center;
+  transition:background .2s;
+}
+.metric-row:hover{background:var(--card2);}
+.metric-row:last-child{border-bottom:none;}
+
+.metric-left{}
+.metric-name{font-size:13px;font-weight:700;color:var(--white);margin-bottom:6px;}
+.metric-sub{font-family:'DM Mono',monospace;font-size:9px;color:var(--dim);letter-spacing:.1em;}
+
+.metric-right{display:flex;align-items:center;gap:20px;min-width:280px;}
+
+.metric-bar-wrap{flex:1;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;}
+.metric-bar{height:100%;border-radius:2px;transition:width 1s cubic-bezier(.4,0,.2,1);}
+.bar-green{background:linear-gradient(90deg,#00cfaa,#00e8c0);}
+.bar-blue{background:linear-gradient(90deg,var(--blue),var(--azure));}
+.bar-gold{background:linear-gradient(90deg,var(--gold),var(--gold-lt));}
+.bar-dim{background:linear-gradient(90deg,var(--dim),#5a6a84);}
+.bar-warn{background:linear-gradient(90deg,#e07b3a,#f09050);}
+
+.metric-pct{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;font-weight:700;
+  min-width:80px;text-align:right;
+  line-height:1;
+}
+.pct-high{color:var(--ai-teal);}
+.pct-mid{color:var(--azure);}
+.pct-low{color:var(--gold);}
+.pct-warn{color:#e07b3a;}
+.pct-pip{color:var(--muted);}
+
+.metric-tag{
+  font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 8px;border-radius:2px;white-space:nowrap;
+}
+.tag-over{background:rgba(0,207,170,.1);color:var(--ai-teal);border:1px solid rgba(0,207,170,.2);}
+.tag-at{background:rgba(0,120,212,.1);color:var(--azure);border:1px solid rgba(0,120,212,.2);}
+.tag-near{background:rgba(200,161,80,.1);color:var(--gold);border:1px solid rgba(200,161,80,.2);}
+.tag-progress{background:rgba(200,161,80,.08);color:var(--gold);border:1px solid rgba(200,161,80,.15);}
+.tag-pipeline{background:rgba(255,255,255,.04);color:var(--muted);border:1px solid var(--border);}
+
+/* Q summary bar */
+.q-summary{
+  background:rgba(255,255,255,.02);
+  border:1px solid var(--border);
+  padding:20px 32px;
+  display:flex;gap:40px;align-items:center;
+  margin-top:2px;
+}
+.qs-item{display:flex;flex-direction:column;gap:4px;}
+.qs-label{font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);}
+.qs-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;}
+
+/* In-progress overlay */
+.ip-note{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 22px;
+  background:rgba(200,161,80,.05);
+  border-left:2px solid var(--gold);
+  margin-bottom:2px;
+  font-family:'DM Mono',monospace;font-size:9px;color:rgba(200,161,80,.8);letter-spacing:.1em;
+}
+
+/* ── FOOTER ── */
+footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:38px 60px;display:flex;justify-content:space-between;align-items:center;background:var(--deep);}
+.f-logo{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--white);}
+.f-logo span{color:var(--gold);}
+.f-role{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+.f-copy{font-size:9px;letter-spacing:.1em;color:var(--dim);}
+
+/* ── ANIMATIONS ── */
+@keyframes up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .8s ease,transform .8s ease;}
+.reveal.vis{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  nav{padding:18px 28px;}
+  .nav-links{display:none;}
+  .hero,.sec,.cert-section,.exp-section,.tl-section,.edu-section,.phil,.contact-sec{padding-left:28px;padding-right:28px;}
+  .ai-grid,.two-col,.phil-grid,.contact-sec,.cert-intro,.edu-grid{grid-template-columns:1fr;gap:36px;}
+  .ai-cards,.cert-cats,.exp-grid{grid-template-columns:1fr;}
+  .stats-strip{grid-template-columns:repeat(2,1fr);}
+  .scroll-h{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+<canvas id="bg"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">D<span>.</span>R<span>.</span>C</div>
+  <ul class="nav-links">
+    <li><a href="#ai">AI Practice</a></li>
+    <li><a href="#performance">Performance</a></li>
+    <li><a href="#certs">Credentials</a></li>
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="/cdn-cgi/l/email-protection#b8dcdbd7dbd0cad9d6ddf8d5d1dbcad7cbd7decc96dbd7d5" class="nav-cta">Work With Me →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <span class="badge">Microsoft · Cloud & AI</span>
+    <span class="badge-text">Platform Specialist · Atlanta, GA</span>
+  </div>
+  <h1 class="hero-name">
+    <span class="l1">DeAndre R.</span>
+    <span class="l2">Cochrane.</span>
+  </h1>
+  <div class="title-row">
+    <div class="tline"></div>
+    <span class="title-text">Cloud & AI Platform Specialist at Microsoft</span>
+    <div class="tline"></div>
+  </div>
+  <p class="hero-sub">
+    I help <strong>SMB, Mid-Market, and Corporate organizations</strong> stop
+    dabbling in AI and start deploying it — through Azure infrastructure strategy,
+    Copilot adoption, and Marketplace motions that create <strong>measurable, lasting advantage.</strong><br><br>
+    Where intelligent technology meets human ambition.
+  </p>
+  <div class="hero-btns">
+    <a href="https://linkedin.com/in/deandrecochrane" class="btn-p">Connect on LinkedIn ↗</a>
+    <a href="#ai" class="btn-g">See My Work ↓</a>
+  </div>
+  <div class="scroll-h">
+    <div class="scroll-bar"></div>
+    <span class="scroll-lbl">Scroll</span>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ti"><span class="hl">Azure Infrastructure</span><span class="td"></span></span>
+    <span class="ti">Microsoft Copilot<span class="td"></span></span>
+    <span class="ti"><span class="hl">IP Co-Sell Motions</span><span class="td"></span></span>
+    <span class="ti">Generative AI<span class="td"></span></span>
+    <span class="ti"><span class="hl">Azure Marketplace</span><span class="td"></span></span>
+    <span class="ti">AI Adoption Strategy<span class="td"></span></span>
+    <span class="ti"><span class="hl">SMC Canada Territory</span><span class="td"></span></span>
+    <span class="ti">Digital Transformation<span class="td"></span></span>
+    <span class="ti"><span class="hl">Cloud Migration</span><span class="td"></span></span>
+    <span class="ti">Guinness World Record Holder<span class="td"></span></span>
+    <span class="ti"><span class="hl">Azure Infrastructure</span><span class="td"></span></span>
+    <span class="ti">Microsoft Copilot<span class="td"></span></span>
+    <span class="ti"><span class="hl">IP Co-Sell Motions</span><span class="td"></span></span>
+    <span class="ti">Generative AI<span class="td"></span></span>
+    <span class="ti"><span class="hl">Azure Marketplace</span><span class="td"></span></span>
+    <span class="ti">AI Adoption Strategy<span class="td"></span></span>
+    <span class="ti"><span class="hl">SMC Canada Territory</span><span class="td"></span></span>
+    <span class="ti">Digital Transformation<span class="td"></span></span>
+    <span class="ti"><span class="hl">Cloud Migration</span><span class="td"></span></span>
+    <span class="ti">Guinness World Record Holder<span class="td"></span></span>
+  </div>
+</div>
+
+<!-- AI NARRATIVE -->
+<section class="sec" id="ai" style="background:linear-gradient(180deg,var(--navy) 0%,var(--deep) 50%,var(--navy) 100%);">
+  <div class="ai-grid reveal">
+    <div>
+      <div class="sec-tag">The AI Imperative</div>
+      <h2 class="sec-h">AI isn't<br>coming.<br><em>It's here.</em></h2>
+    </div>
+    <div class="ai-body reveal d2">
+      The organizations winning right now aren't the ones with the biggest budgets — they're the ones with the <strong>right partner</strong> cutting through the noise. Every week I'm helping businesses understand not just what AI can do, but <strong>what it should do for them specifically.</strong><br><br>
+      As a Cloud & AI Platform Specialist at Microsoft, I translate the complexity of Azure, Copilot, and AI infrastructure into strategies that drive real outcomes. I don't sell features. I help companies <strong>build their future.</strong>
+    </div>
+  </div>
+
+  <!-- Guinness highlight -->
+  <div class="guinness-bar reveal" style="margin-bottom:2px;">
+    <span class="g-star">🌍</span>
+    <div class="g-text">
+      <div class="g-title">Guinness World Record Holder — Microsoft AI Skills Fest</div>
+      <div class="g-sub">Part of the record-breaking global AI learning event. April 2025 · Microsoft</div>
+    </div>
+  </div>
+
+  <div class="ai-cards">
+    <div class="aic reveal">
+      <div class="aic-icon">🤖</div>
+      <div class="aic-title">AI Adoption & Copilot Strategy</div>
+      <div class="aic-text">Most companies say they're "exploring AI." Few have a plan. I build AI adoption roadmaps anchored in Azure OpenAI, Microsoft Copilot, and Generative AI fundamentals — closing the gap between curiosity and competitive advantage.</div>
+      <span class="aic-tag">Copilot · Azure OpenAI · GenAI</span>
+    </div>
+    <div class="aic reveal d1">
+      <div class="aic-icon">☁️</div>
+      <div class="aic-title">Cloud Platform & Infrastructure</div>
+      <div class="aic-text">AI runs on infrastructure. I specialize in Azure architecture conversations — helping businesses modernize their stack, migrate from on-prem, and build the cloud foundation that AI actually needs to perform at scale.</div>
+      <span class="aic-tag">Azure Infrastructure · IaaS · PaaS</span>
+    </div>
+    <div class="aic reveal d2">
+      <div class="aic-icon">🔗</div>
+      <div class="aic-title">Marketplace & IP Co-Sell</div>
+      <div class="aic-text">Operating within Microsoft's IP Co-Sell motion, I connect ISV partners with the right customers through the Azure Marketplace — driving co-sell revenue and helping organizations discover vetted, Azure-integrated AI solutions.</div>
+      <span class="aic-tag">Azure Marketplace · ISV · Co-Sell</span>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="sc reveal">
+    <div class="sn">17<span class="a">+</span></div>
+    <div class="sl">Microsoft<br>Certifications</div>
+  </div>
+  <div class="sc reveal d1">
+    <div class="sn">5<span class="a">+</span></div>
+    <div class="sl">Years in<br>Tech Sales</div>
+  </div>
+  <div class="sc reveal d2">
+    <div class="sn"><span class="a">∞</span></div>
+    <div class="sl">Commitment to<br>AI Mastery</div>
+  </div>
+  <div class="sc reveal d3">
+    <div class="sn">1<span class="a">×</span></div>
+    <div class="sl">Guinness World<br>Record</div>
+  </div>
+  <div class="sc reveal d4">
+    <div class="sn">3</div>
+    <div class="sl">Kiddos<br>at Home</div>
+  </div>
+</div>
+
+<!-- PERFORMANCE -->
+<section class="perf-section" id="performance">
+
+  <div class="perf-disclaimer">
+    Quota attainment percentages only · No confidential financial data · FY26 · In Progress
+  </div>
+
+  <div class="perf-header reveal">
+    <div>
+      <div class="fy-label"><span class="fy-pulse"></span>FY26 · Microsoft · Cloud & AI Platform</div>
+      <h2 class="sec-h">Quota<br>Attainment <em>Record.</em></h2>
+    </div>
+    <div class="perf-intro-text">
+      Four solution areas. Three completed quarters. One standard — <strong>performance that speaks before I do.</strong><br><br>
+      These numbers represent attainment across Azure Infrastructure, AI Platform, Data Analytics, and Security workloads in the SM&C Canada territory. Q3 is in progress. Q4 pipeline is building.
+    </div>
+  </div>
+
+  <!-- QUARTER TABS -->
+  <div class="q-tabs reveal">
+    <button class="q-tab q1 active" onclick="showQ('q1',this)">
+      <span class="q-badge complete">✓ COMPLETE</span>
+      Q1 FY26
+      <span class="q-status">Oct – Dec 2024</span>
+    </button>
+    <button class="q-tab q2" onclick="showQ('q2',this)">
+      <span class="q-badge complete">✓ COMPLETE</span>
+      Q2 FY26
+      <span class="q-status">Jan – Mar 2025</span>
+    </button>
+    <button class="q-tab q3" onclick="showQ('q3',this)">
+      <span class="q-badge progress">● IN PROGRESS</span>
+      Q3 FY26
+      <span class="q-status">Apr – Jun 2025</span>
+    </button>
+    <button class="q-tab q4" onclick="showQ('q4',this)">
+      <span class="q-badge pipeline">◌ PIPELINE</span>
+      Q4 FY26
+      <span class="q-status">Jul – Sep 2025</span>
+    </button>
+  </div>
+
+  <div class="q-panels">
+
+    <!-- Q1 -->
+    <div class="q-panel active" id="panel-q1">
+      <div class="q-panel-header">
+        <span class="q-panel-title">Q1 FY26 · October – December 2024</span>
+        <span class="q-panel-note">All four workloads exceeded quota · Strongest quarter of the year</span>
+      </div>
+      <div class="metric-row">
+        <div class="metric-left">
+          <div class="metric-name">Migrate & Modernize (Total ACR)</div>
+          <div class="metric-sub">Core Azure cloud consumption & workload migration</div>
+        </div>
+        <div class="metric-right">
+          <div class="metric-bar-wrap"><div class="metric-bar bar-green" style="width:100%"></div></div>
+          <div class="metric-pct pct-high">125<span style="font-size:16px">%</span></div>
+          <span class="metric-tag tag-over">Exceeded</span>
+        </div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-left">
+          <div class="metric-name">Data Analytics Platform</div>
+          <div class="metric-sub">Azure data, analytics & BI workloads</div>
+        </div>
+        <div class="metric-right">
+          <div class="metric-bar-wrap"><div class="metric-bar bar-green" style="width:100%"></div></div>
+          <div class="metric-pct pct-high">145<span style="font-size:16px">%</span></div>
+          <span class="metric-tag tag-over">Exceeded</span>
+        </div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-left">
+          <div class="metric-name">AI Platform & Apps</div>
+          <div class="metric-sub">Azure OpenAI, Copilot & AI services adoption</div>
+        </div>
+        <div class="metric-right">
+          <div class="metric-bar-wrap"><div class="metric-bar bar-blue" style="width:100%"></div></div>
+          <div class="metric-pct pct-mid">103<span style="font-size:16px">%</span></div>
+          <span class="metric-tag tag-at">Attained</span>
+        </div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-left">
+          <div class="metric-name">Defender for Cloud</div>
+          <div class="metric-sub">Cloud security posture & workload protection</div>
+        </div>
+        <div class="metric-right">
+          <div class="metric-bar-wrap"><div class="metric-bar bar-green" style="width:100%"></div></div>
+          <div class="metric-pct pct-high">164<span style="font-size:16px">%</span></div>
+          <span class="metric-tag tag-over">Exceeded</span>
+        </div>
+      </div>
+      <div class="q-summary">
+        <div class="qs-item"><span class="qs-label">Workloads at or Above Quota</span><span class="qs-val" style="color:var(--ai-teal)">4 / 4</span></div>
+        <div class="qs-item"><span class="qs-label">Quarter Result</span><span class="qs-val" style="color:var(--ai-teal)">Exceeded ✓</span></div>
+        <div class="qs-item"><span class="qs-label">Standout Workload</span><span class="qs-val" style="color:var(--white);font-size:16px">Defender for Cloud · 164%</span></div>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="q-panel" id="panel-q2">
+      <div class="q-panel-header">
+        <span class="q-panel-title">Q2 FY26 · January – March 2025</span>
+        <span class="q-panel-note">3 of 4 workloads at or above quota · Data Analytics standout at 132%</span>
+      </div>
+      <div class="metric-row">
+        <div class="metric-left">
+          <div class="metric-name">Migrate & Modernize (Total ACR)</div>
+          <div class="metric-sub">Core Azure cloud consumption & workload migration</div>
+        </div>
+        <div class="metric-right">
+          <div class="metric-bar-wrap"><div class="metric-bar bar-blue" style="width:100%"></div></div>
+          <div class="metric-pct pct-mid">110<span style="font-size:16px">%</span></div>
+          <span class="metric-tag tag-over">Exceeded</span>
+        </div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-left">
+          <div class="metric-name">Data Analytics Platform</div>
+          <div class="metric-sub">Azure data, analytics & BI workloads</div>
+        </div>
+        <div class="metric-right">
+          <div class="metric-bar-wrap"><div class="metric-bar bar-green" style="width:100%"></div></div>
+          <div class="metric-pct pct-high">132<span style="font-size:16px">%</span></div>
+          <span class="metric-tag tag-over">Exceeded</span>
+        </div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-left">
+          <div class="metric-name">AI Platform & Apps</div>
+          <div class="metric-sub">Azure OpenAI, Copilot & AI services adoption</div>
+        </div>
+        <div class="metric-right">
+          <div class="metric-bar-wrap"><div class="metric-bar bar-gold" style="width:94%"></div></div>
+          <div class="metric-pct pct-low">94<span style="font-size:16px">%</span></div>
+          <span class="metric-tag tag-near">On Track</span>
+        </div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-left">
+          <div class="metric-name">Defender for Cloud</div>
+          <div class="metric-sub">Cloud security posture & workload protection</div>
+        </div>
+        <div class="metric-right">
+          <div class="metric-bar-wrap"><div class="metric-bar bar-gold" style="width:65%"></div></div>
+          <div class="metric-pct pct-low">65<span style="font-size:16px">%</span></div>
+          <span class="metric-tag tag-near">In Progress</span>
+        </div>
+      </div>
+      <div class="q-summary">
+        <div class="qs-item"><span class="qs-label">Workloads at or Above Quota</span><span class="qs-val" style="color:var(--azure)">3 / 4</span></div>
+        <div class="qs-item"><span class="qs-label">Quarter Result</span><span class="qs-val" style="color:var(--azure)">Strong ✓</span></div>
+        <div class="qs-item"><span class="qs-label">Standout Workload</span><span class="qs-val" style="color:var(--white);font-size:16px">Data Analytics · 132%</span></div>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="q-panel" id="panel-q3">
+      <div class="ip-note">
+        ● Q3 In Progress — Attainment snapshot through mid-quarter. Quarter closes June 2025.
+      </div>
+      <div class="q-panel-header">
+        <span class="q-panel-title">Q3 FY26 · April – June 2025 · In Progress</span>
+        <span class="q-panel-note">Mid-quarter snapshot · Active pipeline across all four workloads</span>
+      </div>
+      <div class="metric-row">
+        <div class="metric-left">
+          <div class="metric-name">Data Analytics Platform</div>
+          <div class="metric-sub">Azure data, analytics & BI workloads</div>
+        </div>
+        <div class="metric-right">
+          <div class="metric-bar-wrap"><div class="metric-bar bar-gold" style="width:85%"></div></div>
+          <div class="metric-pct pct-low">85<span style="font-size:16px">%</span></div>
+          <span class="metric-tag tag-near">On Pace</span>
+        </div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-left">
+          <div class="metric-name">Migrate & Modernize (Total ACR)</div>
+          <div class="metric-sub">Core Azure cloud consumption & workload migration</div>
+        </div>
+        <div class="metric-right">
+          <div class="metric-bar-wrap"><div class="metric-bar bar-gold" style="width:54%"></div></div>
+          <div class="metric-pct pct-low">54<span style="font-size:16px">%</span></div>
+          <span class="metric-tag tag-near">In Progress</span>
+        </div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-left">
+          <div class="metric-name">AI Platform & Apps</div>
+          <div class="metric-sub">Azure OpenAI, Copilot & AI services adoption</div>
+        </div>
+        <div class="metric-right">
+          <div class="metric-bar-wrap"><div class="metric-bar bar-gold" style="width:32%"></div></div>
+          <div class="metric-pct pct-low">32<span style="font-size:16px">%</span></div>
+          <span class="metric-tag tag-near">In Progress</span>
+        </div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-left">
+          <div class="metric-name">Defender for Cloud</div>
+          <div class="metric-sub">Cloud security posture & workload protection</div>
+        </div>
+        <div class="metric-right">
+          <div class="metric-bar-wrap"><div class="metric-bar bar-dim" style="width:15%"></div></div>
+          <div class="metric-pct pct-pip" style="font-size:20px">TBD</div>
+          <span class="metric-tag tag-pipeline">In Progress</span>
+        </div>
+      </div>
+      <div class="q-summary">
+        <div class="qs-item"><span class="qs-label">Quarter Status</span><span class="qs-val" style="color:var(--gold)">In Progress ●</span></div>
+        <div class="qs-item"><span class="qs-label">Leading Workload</span><span class="qs-val" style="color:var(--white);font-size:16px">Data Analytics · 85%</span></div>
+        <div class="qs-item"><span class="qs-label">Priority</span><span class="qs-val" style="color:var(--white);font-size:16px">AI Platform acceleration</span></div>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="q-panel" id="panel-q4">
+      <div class="ip-note" style="border-left-color:var(--muted);background:rgba(255,255,255,.02);color:var(--muted);">
+        ◌ Q4 Pipeline — Quarter opens July 2025. Quota allocated. Pipeline strategy underway.
+      </div>
+      <div class="q-panel-header">
+        <span class="q-panel-title">Q4 FY26 · July – September 2025 · Pipeline</span>
+        <span class="q-panel-note">Quota allocated · Building on FY26 momentum</span>
+      </div>
+      <div class="metric-row">
+        <div class="metric-left">
+          <div class="metric-name">AI Platform & Apps</div>
+          <div class="metric-sub">Primary growth area · Largest Q4 allocation</div>
+        </div>
+        <div class="metric-right">
+          <div class="metric-bar-wrap"><div class="metric-bar bar-dim" style="width:20%"></div></div>
+          <div class="metric-pct pct-pip" style="font-size:18px">Pipeline</div>
+          <span class="metric-tag tag-pipeline">Quota Set</span>
+        </div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-left">
+          <div class="metric-name">Data Analytics Platform</div>
+          <div class="metric-sub">Azure data, analytics & BI workloads</div>
+        </div>
+        <div class="metric-right">
+          <div class="metric-bar-wrap"><div class="metric-bar bar-dim" style="width:20%"></div></div>
+          <div class="metric-pct pct-pip" style="font-size:18px">Pipeline</div>
+          <span class="metric-tag tag-pipeline">Quota Set</span>
+        </div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-left">
+          <div class="metric-name">Migrate & Modernize (Total ACR)</div>
+          <div class="metric-sub">Core Azure cloud consumption & workload migration</div>
+        </div>
+        <div class="metric-right">
+          <div class="metric-bar-wrap"><div class="metric-bar bar-dim" style="width:20%"></div></div>
+          <div class="metric-pct pct-pip" style="font-size:18px">Pipeline</div>
+          <span class="metric-tag tag-pipeline">Quota Set</span>
+        </div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-left">
+          <div class="metric-name">Defender for Cloud</div>
+          <div class="metric-sub">Cloud security posture & workload protection</div>
+        </div>
+        <div class="metric-right">
+          <div class="metric-bar-wrap"><div class="metric-bar bar-dim" style="width:20%"></div></div>
+          <div class="metric-pct pct-pip" style="font-size:18px">Pipeline</div>
+          <span class="metric-tag tag-pipeline">Quota Set</span>
+        </div>
+      </div>
+      <div class="q-summary">
+        <div class="qs-item"><span class="qs-label">Quarter Status</span><span class="qs-val" style="color:var(--muted)">Opens July 2025</span></div>
+        <div class="qs-item"><span class="qs-label">Priority Workload</span><span class="qs-val" style="color:var(--white);font-size:16px">AI Platform & Apps</span></div>
+        <div class="qs-item"><span class="qs-label">Approach</span><span class="qs-val" style="color:var(--white);font-size:16px">Build on Q1 & Q2 wins</span></div>
+      </div>
+    </div>
+
+  </div><!-- end q-panels -->
+
+  <!-- FY26 OVERALL ATTAINMENT -->
+  <div style="margin-top:3px;">
+    <div style="background:rgba(0,207,170,.04);border:1px solid rgba(0,207,170,.12);padding:22px 32px;margin-bottom:2px;display:flex;align-items:center;gap:12px;">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ai-teal);">◈ FY26 Overall Attainment · Completed Quarters (Q1 + Q2)</span>
+      <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-left:auto;letter-spacing:.1em;">Q3 in progress · Q4 pipeline</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;">
+      <div style="background:var(--card);padding:28px 24px;border-top:2px solid var(--ai-teal);">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">Migrate & Modernize</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--ai-teal);line-height:1;">117<span style="font-size:20px">%</span></div>
+        <div style="font-size:9px;color:var(--dim);margin-top:6px;font-family:'DM Mono',monospace;">Avg Q1 + Q2</div>
+      </div>
+      <div style="background:var(--card);padding:28px 24px;border-top:2px solid var(--azure);">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">Data Analytics</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--azure);line-height:1;">138<span style="font-size:20px">%</span></div>
+        <div style="font-size:9px;color:var(--dim);margin-top:6px;font-family:'DM Mono',monospace;">Avg Q1 + Q2</div>
+      </div>
+      <div style="background:var(--card);padding:28px 24px;border-top:2px solid var(--gold);">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">AI Platform & Apps</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--gold);line-height:1;">99<span style="font-size:20px">%</span></div>
+        <div style="font-size:9px;color:var(--dim);margin-top:6px;font-family:'DM Mono',monospace;">Avg Q1 + Q2</div>
+      </div>
+      <div style="background:var(--card);padding:28px 24px;border-top:2px solid var(--azure);">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">Defender for Cloud</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--azure);line-height:1;">115<span style="font-size:20px">%</span></div>
+        <div style="font-size:9px;color:var(--dim);margin-top:6px;font-family:'DM Mono',monospace;">Avg Q1 + Q2</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="cert-section" id="certs">
+  <div class="cert-intro reveal">
+    <div>
+      <div class="sec-tag">Licenses & Certifications</div>
+      <h2 class="sec-h">Credentials<br>that <em>back</em><br>the conversation.</h2>
+      <p style="margin-top:24px;font-family:'Cormorant Garamond',serif;font-size:17px;line-height:1.75;color:var(--muted);">17 verified Microsoft credentials — built in the field, not just on paper. Every certification reflects a real area I'm selling into and a deeper level of credibility I bring to every customer conversation.</p>
+    </div>
+    <div style="display:flex;align-items:flex-end;justify-content:flex-end;">
+      <div class="cert-count reveal d2">17</div>
+    </div>
+  </div>
+
+  <div class="cert-cats">
+    <!-- AI & Cloud -->
+    <div class="cert-cat reveal">
+      <div class="cert-cat-label blue">AI & Cloud</div>
+      <div class="cert-item"><div class="cert-dot blue"></div><div><div class="cert-name">MCAPS Q4 Skills Challenge: Legendary Learner</div><div class="cert-date">May 2025</div></div></div>
+      <div class="cert-item"><div class="cert-dot blue"></div><div><div class="cert-name">Microsoft AI Skills Fest — Guinness World Record</div><div class="cert-date">Apr 2025</div></div></div>
+      <div class="cert-item"><div class="cert-dot blue"></div><div><div class="cert-name">Microsoft AHSI: Higher Altitude (AI Foundations)</div><div class="cert-date">Apr 2025</div></div></div>
+      <div class="cert-item"><div class="cert-dot blue"></div><div><div class="cert-name">Microsoft 365 Copilot AI Navigator Badge</div><div class="cert-date">Mar 2025</div></div></div>
+      <div class="cert-item"><div class="cert-dot blue"></div><div><div class="cert-name">What Is Generative AI? (LinkedIn)</div><div class="cert-date">Oct 2024</div></div></div>
+      <div class="cert-item"><div class="cert-dot blue"></div><div><div class="cert-name">AWS Certified Cloud Practitioner</div><div class="cert-date">Jun 2023 · Expires Jun 2026</div></div></div>
+    </div>
+
+    <!-- Nonprofit AI Advisor -->
+    <div class="cert-cat reveal d1">
+      <div class="cert-cat-label teal">Nonprofit AI Advisor Series</div>
+      <div class="cert-item"><div class="cert-dot teal"></div><div><div class="cert-name">Nonprofit Advisor AI for Volunteer Management</div><div class="cert-date">Apr 2025</div></div></div>
+      <div class="cert-item"><div class="cert-dot teal"></div><div><div class="cert-name">Nonprofit Advisor AI for Funding</div><div class="cert-date">Apr 2025</div></div></div>
+      <div class="cert-item"><div class="cert-dot teal"></div><div><div class="cert-name">Nonprofit Advisor AI for Program Management</div><div class="cert-date">Apr 2025</div></div></div>
+      <div class="cert-item"><div class="cert-dot teal"></div><div><div class="cert-name">Nonprofit Advisor AI General Skills</div><div class="cert-date">Apr 2025</div></div></div>
+      <div class="cert-item"><div class="cert-dot teal"></div><div><div class="cert-name">Nonprofit Advisor: AI Usage Policy Volunteer</div><div class="cert-date">Oct 2024</div></div></div>
+    </div>
+
+    <!-- Culture & Other -->
+    <div class="cert-cat reveal d2">
+      <div class="cert-cat-label gold">Leadership & Skills</div>
+      <div class="cert-item"><div class="cert-dot gold"></div><div><div class="cert-name">Achievement in Accessibility: Disability Hiring Champion</div><div class="cert-date">Oct 2024</div></div></div>
+      <div class="cert-item"><div class="cert-dot gold"></div><div><div class="cert-name">Accessibility in Action</div><div class="cert-date">Oct 2024</div></div></div>
+      <div class="cert-item"><div class="cert-dot gold"></div><div><div class="cert-name">Sustainability in Action</div><div class="cert-date">Oct 2024</div></div></div>
+      <div class="cert-item"><div class="cert-dot gold"></div><div><div class="cert-name">ZoomInfo DaaS Certification</div><div class="cert-date">Jul 2024</div></div></div>
+      <div class="cert-item"><div class="cert-dot gold"></div><div><div class="cert-name">ZoomInfo Sales Certification</div><div class="cert-date">Jul 2024</div></div></div>
+      <div class="cert-item"><div class="cert-dot gold"></div><div><div class="cert-name">Certified ScrumMaster (CSM)</div><div class="cert-date">Nov 2021</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section class="exp-section" id="expertise">
+  <div class="two-col">
+    <div class="reveal">
+      <div class="sec-tag">Areas of Expertise</div>
+      <h2 class="sec-h">Where I<br><em>operate.</em></h2>
+      <p style="margin-top:28px;font-family:'Cormorant Garamond',serif;font-size:17px;line-height:1.75;color:var(--muted);">Five years of full-cycle sales spanning financial services, cybersecurity, and cloud — culminating in a specialized focus on AI-driven cloud transformation at Microsoft.</p>
+    </div>
+    <div class="exp-grid">
+      <div class="ec b reveal">
+        <div class="ec-num">01</div>
+        <div class="ec-title">Cloud Sales</div>
+        <ul class="ec-list">
+          <li>Azure Infrastructure</li>
+          <li>Migration Motions</li>
+          <li>IP Co-Sell Strategy</li>
+          <li>Marketplace GTM</li>
+        </ul>
+      </div>
+      <div class="ec t reveal d1">
+        <div class="ec-num">02</div>
+        <div class="ec-title">AI & Copilot</div>
+        <ul class="ec-list">
+          <li>Copilot Positioning</li>
+          <li>Azure OpenAI</li>
+          <li>AI Adoption Plans</li>
+          <li>GenAI Fundamentals</li>
+        </ul>
+      </div>
+      <div class="ec g reveal d2">
+        <div class="ec-num">03</div>
+        <div class="ec-title">SaaS & Security</div>
+        <ul class="ec-list">
+          <li>Full-Cycle Closing</li>
+          <li>Cybersecurity SaaS</li>
+          <li>SMB to Enterprise</li>
+          <li>MSP Channel Sales</li>
+        </ul>
+      </div>
+      <div class="ec b reveal d3">
+        <div class="ec-num">04</div>
+        <div class="ec-title">Leadership</div>
+        <ul class="ec-list">
+          <li>Team Management</li>
+          <li>Sales Enablement</li>
+          <li>Process Building</li>
+          <li>Cross-Functional Work</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="tl-section" id="journey">
+  <div style="margin-bottom:60px;" class="reveal">
+    <div class="sec-tag">Career Journey</div>
+    <h2 class="sec-h">Every role<br><em>earned.</em></h2>
+  </div>
+  <div class="tl-wrap">
+
+    <div class="tl-item cur reveal">
+      <div class="tl-date">JUL 2025 — PRESENT</div>
+      <div class="tl-role">Cloud and AI Platform Specialist</div>
+      <div class="tl-company">Microsoft · Remote</div>
+      <div class="tl-desc">Upgraded from Digital Sales Specialist to Cloud & AI Platform Specialist — expanded scope into AI platform strategy, Copilot adoption, and deeper technical conversations. Driving Azure IP Co-Sell and Marketplace motions across SMC Canada territory.</div>
+      <div class="tl-pills">
+        <span class="pill g">Cloud & AI</span><span class="pill g">Azure</span><span class="pill g">Copilot</span><span class="pill g">IP Co-Sell</span>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-date">OCT 2024 — JUL 2025</div>
+      <div class="tl-role">Digital Sales Specialist — Azure Infrastructure</div>
+      <div class="tl-company">Microsoft · Atlanta, GA</div>
+      <div class="tl-desc">Entered Microsoft through the Elevate program focused on Azure Infrastructure. Supported SMB, Mid-Market, and Corporate accounts in Canada. Collaborated on IBM Maximo on Azure motion, driving on-prem to SaaS migration narratives across 800+ accounts in territory.</div>
+      <div class="tl-pills">
+        <span class="pill a">Azure</span><span class="pill a">Marketplace</span><span class="pill a">IBM Maximo</span><span class="pill a">Elevate Program</span>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-date">OCT 2024 — PRESENT</div>
+      <div class="tl-role">Nonprofit Advisor: AI Usage Policy Volunteer</div>
+      <div class="tl-company">Microsoft · Freelance · Atlanta, GA</div>
+      <div class="tl-desc">Advising nonprofits on responsible AI adoption and usage policies — applying Microsoft's AI framework in community and mission-driven contexts.</div>
+      <div class="tl-pills">
+        <span class="pill t">AI Policy</span><span class="pill t">Nonprofit</span>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-date">APR 2024 — AUG 2024</div>
+      <div class="tl-role">Lead MSP Inside Sales Representative</div>
+      <div class="tl-company">Conceal · Augusta, GA</div>
+      <div class="tl-desc">Led a team of MSP sales reps. Set direction, performance benchmarks, and took on VP-level responsibility after leadership transition. Managed key account relationships and outbound strategy for Managed Service Provider channel.</div>
+      <div class="tl-pills">
+        <span class="pill a">MSP Channel</span><span class="pill a">Team Leadership</span><span class="pill a">ConcealBrowse</span>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-date">AUG 2023 — APR 2024</div>
+      <div class="tl-role">Inside Sales Representative — Managed Services</div>
+      <div class="tl-company">Conceal · Richmond County, GA</div>
+      <div class="tl-desc">Exceeded quota every quarter selling ConcealBrowse into MSP and Enterprise segments. Promoted within 9 months to Lead ISR.</div>
+      <div class="tl-pills">
+        <span class="pill">Cybersecurity SaaS</span><span class="pill">Outbound Sales</span>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-date">MAR 2023 — AUG 2023</div>
+      <div class="tl-role">Business Development Representative</div>
+      <div class="tl-company">Conceal · Richmond County, GA</div>
+      <div class="tl-desc">Exceeded daily metrics from day one. Built pipeline through outbound prospecting across SMB to Enterprise. Promoted to ISR in 6 months.</div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-date">JAN 2022 — MAR 2023</div>
+      <div class="tl-role">Business Development Manager</div>
+      <div class="tl-company">Elle Prestige, LLC · Grovetown, GA</div>
+      <div class="tl-desc">Secured commercial cleaning contracts across Georgia. Built client relationships from outreach to signed agreement — developing the consultative sales muscle that defines my approach today.</div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-date">JAN 2021 — JUL 2022</div>
+      <div class="tl-role">Financial Representative</div>
+      <div class="tl-company">Northwestern Mutual · Atlanta, GA</div>
+      <div class="tl-desc">Where it started. Set records and won national awards as a college intern. This chapter ignited a love for sales and proved that performance — not seniority — is the only currency that matters.</div>
+      <div class="tl-pills">
+        <span class="pill g">National Award Winner</span><span class="pill g">Record Setter</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="edu-section">
+  <div class="reveal">
+    <div class="sec-tag">Education</div>
+    <h2 class="sec-h">The academic<br><em>foundation.</em></h2>
+  </div>
+  <div class="edu-grid">
+    <div class="edu-card reveal d1">
+      <div class="edu-school">Augusta University</div>
+      <div class="edu-degree">Bachelor of Business Administration (BBA)<br>Business Administration & Management</div>
+      <div class="edu-year">2020 – 2022</div>
+    </div>
+    <div class="edu-card reveal d2" style="border-left-color:var(--gold);">
+      <div class="edu-school">Albany State University</div>
+      <div class="edu-degree">Bachelor of Science (B.S.)<br>Biology, General</div>
+      <div class="edu-year">2014 – 2017</div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="phil">
+  <div class="phil-bg">PURPOSE</div>
+  <div class="phil-grid">
+    <div class="reveal">
+      <div class="sec-tag">Philosophy</div>
+      <blockquote class="phil-q">
+        "AI is the most powerful lever in business right now — and I show up every day to make sure the companies I work with know exactly how to <strong>pull it.</strong> That's not just a job. That's a <span class="gld">calling.</span>"
+      </blockquote>
+      <p class="phil-attr">— DeAndre R. Cochrane</p>
+    </div>
+    <div class="vlist reveal d2">
+      <div class="vrow">
+        <span class="vnum">01</span>
+        <span class="vname">Faith</span>
+        <span class="vdesc">Foundation before any title</span>
+      </div>
+      <div class="vrow">
+        <span class="vnum">02</span>
+        <span class="vname">Family</span>
+        <span class="vdesc">Husband. Father of three.</span>
+      </div>
+      <div class="vrow">
+        <span class="vnum">03</span>
+        <span class="vname">Growth Mindset</span>
+        <span class="vdesc">17 certs and counting</span>
+      </div>
+      <div class="vrow">
+        <span class="vnum">04</span>
+        <span class="vname">Customer Obsession</span>
+        <span class="vdesc">One Microsoft. Always.</span>
+      </div>
+      <div class="vrow">
+        <span class="vnum">05</span>
+        <span class="vname">Impact</span>
+        <span class="vdesc">Results that outlast the quarter</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-sec" id="contact">
+  <div class="reveal">
+    <div class="sec-tag">Get In Touch</div>
+    <h2 class="sec-h">An opportunity<br>worth <em>exploring?</em></h2>
+    <p style="margin-top:22px;font-family:'Cormorant Garamond',serif;font-size:18px;line-height:1.75;color:var(--muted);">Whether you're a partner exploring Azure co-sell, a leader looking to accelerate AI adoption, or someone building something worth talking about — reach out.</p>
+    <div class="clinks">
+      <a href="https://linkedin.com/in/deandrecochrane" class="clink">
+        <span class="ci">💼</span>
+        <div class="cl">LinkedIn<span class="cs">linkedin.com/in/deandrecochrane</span></div>
+        <span class="ca">→</span>
+      </a>
+      <a href="/cdn-cgi/l/email-protection#86e2e5e9e5eef4e7e8e3c6ebefe5f4e9f5e9e0f2a8e5e9eb" class="clink">
+        <span class="ci">🏢</span>
+        <div class="cl">Microsoft<span class="cs"><span class="__cf_email__" data-cfemail="cbafa8a4a8a3b9aaa5ae8ba6a2a8b9a4b8a4adbfe5a8a4a6">[email&#160;protected]</span></span></div>
+        <span class="ca">→</span>
+      </a>
+      <a href="/cdn-cgi/l/email-protection#365559555e445758531852535758524453070476515b575f5a1855595b" class="clink">
+        <span class="ci">✉️</span>
+        <div class="cl">Personal<span class="cs"><span class="__cf_email__" data-cfemail="fc9f939f948e9d9299d298999d92988e99cdcebc9b919d9590d29f9391">[email&#160;protected]</span></span></div>
+        <span class="ca">→</span>
+      </a>
+      <a href="#" class="clink">
+        <span class="ci">📍</span>
+        <div class="cl">Location<span class="cs">Atlanta Metro · McDonough, GA</span></div>
+        <span class="ca">→</span>
+      </a>
+    </div>
+  </div>
+  <div class="reveal d2">
+    <div class="sec-tag">Beyond the Role</div>
+    <div class="about-side">
+      <div class="about-card">
+        <div class="about-title">CBMC Member</div>
+        <div class="about-text">Christian Business Men's Connection — connecting faith and marketplace leadership since Jul 2023. Evans, GA.</div>
+      </div>
+      <div class="about-card gold">
+        <div class="about-title">Founder & Principal Consultant</div>
+        <div class="about-text">Cochrane & Co — self-employed consulting practice running since May 2020, focused on business development and strategic advisory.</div>
+      </div>
+      <div class="about-card teal">
+        <div class="about-title">Community & Service</div>
+        <div class="about-text">Devoted Church member. Faith-driven approach to leadership, service, and building things that last beyond the workday.</div>
+      </div>
+      <div class="about-card">
+        <div class="about-title">Family Man</div>
+        <div class="about-text">Husband to Valencia. Father to Violette, Judah, and Esmé. Everything else is the reason why.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="f-logo">DeAndre R. <span>Cochrane</span></div>
+    <div class="f-role">Cloud & AI Platform Specialist · Microsoft · Atlanta, GA</div>
+  </div>
+  <div class="f-copy">© 2026 · Built with purpose</div>
+</footer>
+
+<!-- SCRIPTS -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// CURSOR
+const cur = document.getElementById('cur');
+const curR = document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{curR.style.width='54px';curR.style.height='54px';curR.style.borderColor='rgba(200,161,80,.65)';});
+  el.addEventListener('mouseleave',()=>{curR.style.width='34px';curR.style.height='34px';curR.style.borderColor='rgba(200,161,80,.35)';});
+});
+
+// CANVAS
+const canvas=document.getElementById('bg');
+const ctx=canvas.getContext('2d');
+let W,H,particles=[];
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+resize();
+window.addEventListener('resize',()=>{resize();init();});
+
+class P{
+  constructor(){this.reset();}
+  reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.28;this.vy=(Math.random()-.5)*.28;this.r=Math.random()*1.4+.3;this.a=Math.random()*.45+.08;this.c=Math.random()>.72?'#c8a150':Math.random()>.5?'#0078d4':'#3fa8f5';}
+  update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset();}
+  draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=this.c;ctx.globalAlpha=this.a;ctx.fill();ctx.globalAlpha=1;}
+}
+
+function init(){particles=Array.from({length:90},()=>new P());}
+init();
+
+let frame=0;
+function animate(){
+  ctx.clearRect(0,0,W,H);
+  frame++;
+
+  // grid
+  const sp=58,cols=Math.ceil(W/sp)+1,rows=Math.ceil(H/sp)+1;
+  const ox=(frame*.18)%sp,oy=(frame*.09)%sp;
+  for(let i=0;i<cols;i++)for(let j=0;j<rows;j++){
+    const gx=i*sp-ox,gy=j*sp-oy;
+    const d=Math.sqrt((gx-mx)**2+(gy-my)**2);
+    const a=Math.max(0,.055-d/5500);
+    ctx.beginPath();ctx.arc(gx,gy,.9,0,Math.PI*2);ctx.fillStyle=`rgba(63,168,245,${a+.018})`;ctx.fill();
+  }
+
+  // particles + connections
+  particles.forEach(p=>{p.update();p.draw();});
+  for(let i=0;i<particles.length;i++)for(let j=i+1;j<particles.length;j++){
+    const d=Math.hypot(particles[i].x-particles[j].x,particles[i].y-particles[j].y);
+    if(d<110){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle=`rgba(0,120,212,${(1-d/110)*.09})`;ctx.lineWidth=.5;ctx.stroke();}
+  }
+
+  // orbs
+  const t=frame*.007;
+  [{x:W*.78,y:H*.22,r:320,c:'rgba(0,120,212,.045)'},{x:W*.12,y:H*.72,r:260,c:'rgba(200,161,80,.03)'},{x:W*.88,y:H*.82,r:200,c:'rgba(0,207,170,.025)'}].forEach((o,i)=>{
+    const pulse=1+.14*Math.sin(t+i*2.1);
+    const g=ctx.createRadialGradient(o.x,o.y,0,o.x,o.y,o.r*pulse);
+    g.addColorStop(0,o.c);g.addColorStop(1,'transparent');
+    ctx.beginPath();ctx.arc(o.x,o.y,o.r*pulse,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
+
+// PERFORMANCE TABS
+function showQ(id, btn) {
+  document.querySelectorAll('.q-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.q-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+  setTimeout(() => {
+    document.querySelectorAll('#panel-' + id + ' .metric-bar').forEach(bar => {
+      const w = bar.style.width;
+      bar.style.width = '0%';
+      setTimeout(() => { bar.style.width = w; }, 50);
+    });
+  }, 50);
+}
+
+// Animate bars on scroll into view
+const barObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.q-panel.active .metric-bar').forEach((bar, i) => {
+        const targetW = bar.getAttribute('data-w') || bar.style.width;
+        bar.setAttribute('data-w', targetW);
+        bar.style.width = '0%';
+        setTimeout(() => { bar.style.width = targetW; }, 100 + i * 140);
+      });
+    }
+  });
+}, { threshold: 0.15 });
+const perfSection = document.getElementById('performance');
+if (perfSection) barObs.observe(perfSection);
+
+// SCROLL REVEAL
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+</script>
+</body>
+</html>
