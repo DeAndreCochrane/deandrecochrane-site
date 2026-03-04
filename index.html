@@ -1654,4 +1654,16 @@ hamburger.addEventListener('click', () => {
   document.body.style.overflow = mobDrawer.classList.contains('open') ? 'hidden' : '';
 });
 document.querySelectorAll('.mob-link, .mob-cta').forEach(link => {
-  link.addEventListener('click', () 
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobDrawer.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+// SCROLL REVEAL
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+</script>
+</body>
+</html>
